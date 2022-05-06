@@ -1,9 +1,12 @@
 package com.example.todoapp
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var todoDeletebutton: Button
     private lateinit var todoadapter: TodoAdapter
     lateinit var database: SQLiteDatabase
+
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,29 +48,43 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
         todoAddbutton.setOnClickListener {
             val title = edittexttitle.text.toString()
+            if (title.isNotEmpty()) {
+                try {
 
-            try {
-
-                val sqlString = "INSERT INTO todotable (title,isChecked) VALUES(?,?)"
-                val statement = database.compileStatement(sqlString)
-                statement.bindString(1, title)
-                statement.bindString(2, "false")
-                statement.execute()
-            } catch (e: Exception) {
-                e.printStackTrace()
+                    val sqlString = "INSERT INTO todotable (title,isChecked) VALUES(?,?)"
+                    val statement = database.compileStatement(sqlString)
+                    statement.bindString(1, title)
+                    statement.bindString(2, "false")
+                    statement.execute()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
+
 
             if (title.isNotEmpty()) {
                 val todo: Todo = Todo(title, false)
                 todoadapter.addTodo(todo)
                 edittexttitle.text.clear()
+                closeKeyBoard()
             }
+
         }
         todoDeletebutton.setOnClickListener {
             todoadapter.deleteDoneTodos(database)
 
+        }
+    }
+
+    fun closeKeyBoard() {
+        var view: View? = this.getCurrentFocus()
+        if (view != null) {
+            var manager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 

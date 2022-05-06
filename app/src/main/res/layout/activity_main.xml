@@ -10,33 +10,56 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/todoAddbutton"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edittexttitle"
-        android:layout_width="0dp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:gravity="center_vertical"
         android:hint="enter todo name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/todoAddbutton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@+id/todoAddbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconContentDescription="Todo Name"
+        app:startIconDrawable="@drawable/ic_baseline_check_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittexttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/todoAddbutton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
         android:text="Add todo"
+        app:icon="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/todoDeletebutton" />
+        app:layout_constraintEnd_toStartOf="@+id/todoDeletebutton"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/todoDeletebutton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
         android:text="delete todo"
+        app:icon="@drawable/ic_baseline_delete_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/todoAddbutton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
